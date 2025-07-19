@@ -1,6 +1,7 @@
 package com.udemy.matriculas.registros.models.entities;
 
 import com.udemy.matriculas.auth.models.entities.Usuario;
+import com.udemy.matriculas.registros.models.enums.EstadoUsuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,5 +33,9 @@ public class Estudiante {
     
     @Column(name = "documento_identidad", nullable = false)
     private String dni;
+    
+    @Column(name = "estado_estudiante", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EstadoUsuario estado;
     
 }
