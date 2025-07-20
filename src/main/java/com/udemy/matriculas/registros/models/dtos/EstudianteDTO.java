@@ -1,5 +1,6 @@
 package com.udemy.matriculas.registros.models.dtos;
 
+import com.udemy.matriculas.auth.models.entities.Rol;
 import com.udemy.matriculas.registros.models.enums.EstadoUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +24,6 @@ public class EstudianteDTO {
     private String dni;
     
     private EstadoUsuario estado;
+    
+    private Rol rol;
 }
