@@ -1,5 +1,7 @@
 package com.udemy.matriculas.auth.models.entities;
 
+import com.udemy.matriculas.registros.models.entities.Docente;
+import com.udemy.matriculas.registros.models.entities.Estudiante;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +33,12 @@ public class Usuario implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Estudiante estudiante;
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Docente docente;
     
     /* ======= Estos son para convertir mi Entidad (Usuario) a un UserDetails (de SpringBoot) ======= */
     @Override
