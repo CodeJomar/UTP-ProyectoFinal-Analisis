@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EstudianteDTO {
     
+    private Long id;
+    
     private String username;
     
     private String password;

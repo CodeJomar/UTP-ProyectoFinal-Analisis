@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class DocenteDTO {
     
+    private Long id;
+    
     private String username;
     
     private String password;
