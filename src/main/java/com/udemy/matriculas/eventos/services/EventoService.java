@@ -63,9 +63,8 @@ public class EventoService {
         if (dto.getDocenteId() != null) {
             Docente docente = docenteRepository.findById(dto.getDocenteId())
                     .orElseThrow(() -> new RuntimeException("Docente no encontrado"));
-            evento.setDocente(docente); // <-- CORRECCIÓN AQUÍ
-        } else {
-            evento.setDocente(null); // <-- CORRECCIÓN AQUÍ
+            evento.setDocente(docente);
+            evento.setDocente(null);
         }
 
         return eventoRepository.save(evento);
