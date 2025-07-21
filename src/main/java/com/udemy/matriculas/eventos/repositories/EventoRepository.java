@@ -1,4 +1,9 @@
 package com.udemy.matriculas.eventos.repositories;
 
-public interface EventoRepository {
+import com.udemy.matriculas.eventos.models.entities.Eventos;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EventoRepository extends JpaRepository<Eventos, Long> {
 }
