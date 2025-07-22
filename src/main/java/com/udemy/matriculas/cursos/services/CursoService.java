@@ -43,7 +43,7 @@ public class CursoService {
         curso.setCapacidadMaxima(dto.getCapacidadMaxima());
         curso.setDescripcion(dto.getDescripcion());
         curso.setPreRequisito(dto.getPreRequisito());
-        curso.setEstado(EstadoCurso.EN_CURSO); // <-- CAMBIO AQUÍ
+        curso.setEstado(EstadoCurso.EN_CURSO);
         curso.setDocente(docente);
 
         return cursoRepository.save(curso);
