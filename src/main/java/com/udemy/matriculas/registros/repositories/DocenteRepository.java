@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface DocenteRepository extends JpaRepository<Docente, Long> {
     Optional<Docente> findByUsuario_Username(String username);
-    List<Docente> findByEstadoUsuario(EstadoUsuario estadoUsuario);
+//    List<Docente> findByEstadoUsuario(EstadoUsuario estado);
 }

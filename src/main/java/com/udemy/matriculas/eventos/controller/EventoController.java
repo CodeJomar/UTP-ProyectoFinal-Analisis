@@ -1,4 +1,4 @@
-package com.udemy.matriculas.eventos.controllers;
+package com.udemy.matriculas.eventos.controller;
 
 import com.udemy.matriculas.eventos.models.dtos.EventoDTO;
 import com.udemy.matriculas.eventos.models.entities.Eventos;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/*
 @Controller
 @RequestMapping("/eventos")
 @RequiredArgsConstructor
@@ -78,3 +78,4 @@ public class EventoController {
         );
     }
 }
+*/

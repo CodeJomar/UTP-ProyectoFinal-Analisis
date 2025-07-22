@@ -45,9 +45,9 @@ public class EstudianteService {
     }
     
     // Listar solo estudiantes activos
-    public List<Estudiante> listarEstudiantesActivos() {
-        return estudianteRepository.findByEstadoUsuario(EstadoUsuario.ACTIVO);
-    }
+//    public List<Estudiante> listarEstudiantesActivos() {
+//        return estudianteRepository.findByEstadoUsuario(EstadoUsuario.ACTIVO);
+//    }
     
     // Obtener estudiante por ID
     public Estudiante obtenerPorId(Long id) {

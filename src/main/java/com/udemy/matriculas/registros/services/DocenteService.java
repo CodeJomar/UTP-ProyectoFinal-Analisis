@@ -24,9 +24,9 @@ public class DocenteService {
     }
     
     // Obtener solo docentes activos
-    public List<Docente> listarDocentesActivos() {
-        return docenteRepository.findByEstadoUsuario(EstadoUsuario.ACTIVO);
-    }
+//    public List<Docente> listarDocentesActivos() {
+//        return docenteRepository.findByEstadoUsuario(EstadoUsuario.ACTIVO);
+//    }
     
     // Registrar un nuevo docente
     public Docente registrarDocente(DocenteDTO dto) {

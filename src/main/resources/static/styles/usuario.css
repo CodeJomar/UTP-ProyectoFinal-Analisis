@@ -1,0 +1,323 @@
+/* Usuarios Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+}
+
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.sidebar .nav-link.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 4px solid white;
+}
+
+.sidebar .nav-link small {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  color: white;
+}
+
+.logout-link {
+  margin-top: auto !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem !important;
+}
+
+/* Tabs Styling */
+.nav-tabs .nav-link {
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: 0.375rem 0.375rem 0 0;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef #dee2e6;
+  isolation: isolate;
+  background-color: #f8f9fa;
+}
+
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link .badge {
+  font-size: 0.75rem;
+}
+
+/* DataTables Custom Styling */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 0.375rem 0.75rem;
+  margin-left: 2px;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  color: #495057 !important;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #495057 !important;
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: white !important;
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+  outline: 0;
+}
+
+/* Table Styling */
+.table th {
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.875rem;
+  padding: 1rem 0.75rem;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Status Badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.badge.bg-success {
+  background-color: #198754 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+/* Action Buttons */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
+
+.btn-group-sm > .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
+
+/* Stats Cards */
+.stats-icon {
+  opacity: 0.3;
+}
+
+.card.bg-primary .stats-icon,
+.card.bg-success .stats-icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Stats Cards para Usuarios */
+.stats-card-usuarios {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 0.5rem;
+}
+
+.stats-card-usuarios:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.stats-icon-usuarios {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+  background-color: #4f46e5;
+}
+
+.stats-icon-usuarios.bg-success {
+  background-color: #198754 !important;
+}
+
+.stats-icon-usuarios.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+.stats-card-usuarios .card-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.stats-card-usuarios .card-subtitle {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.stats-card-usuarios small {
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+/* Navegación interna */
+.btn-group .btn {
+  position: relative;
+}
+
+.btn-group .btn .badge {
+  font-size: 0.65rem;
+  padding: 0.25rem 0.4rem;
+}
+
+.content-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-group .btn.active {
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 767.98px) {
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .nav-tabs .nav-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .btn-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(79, 70, 229, 0.3);
+  border-radius: 50%;
+  border-top-color: #4f46e5;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom SweetAlert2 Styling */
+.swal2-popup {
+  border-radius: 0.5rem;
+}
+
+.swal2-title {
+  color: #495057;
+  font-weight: 600;
+}
+
+.swal2-confirm {
+  background-color: #4f46e5 !important;
+  border-radius: 0.375rem;
+}
+
+.swal2-cancel {
+  background-color: #6c757d !important;
+  border-radius: 0.375rem;
+}
+
+.text-success {
+  color: #198754 !important;
+}
