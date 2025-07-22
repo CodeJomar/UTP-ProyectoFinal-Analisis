@@ -31,9 +31,11 @@ public class AuthController {
     
     @PostMapping("/post")
     public String registrar(@Valid @ModelAttribute("usuario") RegisUsuarioDTO dto,
-                            BindingResult result, RedirectAttributes redirect) {
+                            BindingResult result, Model model, RedirectAttributes redirect) {
+        
         if (result.hasErrors()) {
-            return "registro"; // vuelve al formulario con errores
+            model.addAttribute("mostrarError", true);
+            return "registro";
         }
         
         try {
@@ -42,8 +44,10 @@ public class AuthController {
             return "redirect:/?registroExitoso";
         } catch (IllegalArgumentException ex) {
             result.rejectValue("username", null, ex.getMessage());
+            model.addAttribute("mostrarError", true);
             return "registro";
         }
     }
+    
 }
 

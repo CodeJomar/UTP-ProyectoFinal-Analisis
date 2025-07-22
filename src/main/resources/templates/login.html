@@ -305,7 +305,7 @@
                             <h2 class="login-title">¡Bienvenido de vuelta!</h2>
                             <p class="login-subtitle">Ingresa tus credenciales para acceder al panel administrativo</p>
 
-                            <form id="loginForm" th:action="@{/login}" method="post">
+                            <form id="loginForm" th:action="@{/login}" method="post" novalidate>
                                 <div class="mb-3">
                                     <label for="usernameLogin" class="form-label">
                                         <i class="bi bi-person me-2"></i>Correo Electrónico
@@ -356,84 +356,38 @@
             });
         </script>
     </div>
-    <!--
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function (event) {
-            //event.preventDefault();
-
-            const username = document.getElementById('usernameLogin').value;
-            const password = document.getElementById('passwordLogin').value;
-
-            // Simulación de validación
-            if (username && password) {
-                // Mostrar loading en el botón
-                const submitBtn = event.target.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i>Iniciando sesión...';
-                submitBtn.disabled = true;
-
-                // Simular delay de autenticación
-                setTimeout(() => {
-                    // Guardar datos de sesión (simulado)
-                    localStorage.setItem('userSession', JSON.stringify({
-                        username: username,
-                        loginTime: new Date().toISOString()
-                    }));
-
-                    // Redirigir al dashboard
-                    //window.location.href = 'index.html';
-                }, 1500);
-            } else {
-                // Mostrar error
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'alert alert-danger alert-dismissible fade show mt-3';
-                alertDiv.innerHTML = `
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    Por favor, ingresa tu usuario y contraseña.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-
-                const form = document.getElementById('loginForm');
-                form.appendChild(alertDiv);
-
-                // Auto-remove alert after 5 seconds
-                setTimeout(() => {
-                    if (alertDiv.parentNode) {
-                        alertDiv.remove();
-                    }
-                }, 5000);
-            }
-        });
-
-        // Animación de entrada para los elementos del formulario
-        document.addEventListener('DOMContentLoaded', function () {
-            const formElements = document.querySelectorAll('.form-control, .btn-primary');
-            formElements.forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.1}s`;
+    <div th:if="${param.error}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Inicio de sesión fallido',
+                text: 'Correo o contraseña incorrectos.',
+                confirmButtonText: 'Intentar de nuevo'
             });
-        });
+        </script>
+    </div>
 
-        // Efecto de typing en el placeholder (opcional)
-        const usernameInput = document.getElementById('usernameLogin');
-        const passwordInput = document.getElementById('passwordLogin');
+    <div th:if="${param.logoutExitoso}">
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Sesión finalizada',
+                text: 'Has cerrado sesión correctamente.',
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    </div>
 
-        usernameInput.addEventListener('focus', function () {
-            this.style.transform = 'scale(1.02)';
-        });
-
-        usernameInput.addEventListener('blur', function () {
-            this.style.transform = 'scale(1)';
-        });
-
-        passwordInput.addEventListener('focus', function () {
-            this.style.transform = 'scale(1.02)';
-        });
-
-        passwordInput.addEventListener('blur', function () {
-            this.style.transform = 'scale(1)';
-        });
-    </script>
-    -->
+    <div th:if="${param.registroExitoso}">
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso',
+                text: 'Ahora puedes iniciar sesión.',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    </div>
 </body>
 
 </html>
