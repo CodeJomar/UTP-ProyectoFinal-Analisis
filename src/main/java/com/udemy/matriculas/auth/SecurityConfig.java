@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -27,8 +28,8 @@ public class SecurityConfig {
         return http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers( "/scripts/**", "/styles/**", "/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/","/registro", "/post").permitAll()
-                .requestMatchers("/usuarios/**", "/login", "/index", "/eventos", "/cursos").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers("/", "/login","/registro", "/post").permitAll()
+                .requestMatchers("/usuarios/**", "/index", "/eventos", "/cursos").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers("/student").hasAnyAuthority("ROLE_STUDENT")
                 .anyRequest().authenticated()
             )
@@ -47,6 +48,9 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
+            )
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Usar CookieCsrfTokenRepository
             )
             .userDetailsService(userDetailsService)
             .build();
