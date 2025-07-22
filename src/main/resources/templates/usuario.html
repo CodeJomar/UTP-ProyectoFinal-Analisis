@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -12,56 +12,14 @@
     <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css" rel="stylesheet">
-    <link href="./styles/usuario.css" rel="stylesheet">
+    <link th:href="@{./styles/usuario.css}" rel="stylesheet">
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                <div class="position-sticky pt-3">
-                    <div class="sidebar-header mb-4">
-                        <h4 class="text-white mb-1">
-                            <a href="index.html" class="text-white text-decoration-none">Udemy admin</a>
-                        </h4>
-                        <small class="text-light">Sistema de Gestión Académica</small>
-                    </div>
-
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="bi bi-grid-3x3-gap me-2"></i>
-                                Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="cursos.html">
-                                <i class="bi bi-book me-2"></i>
-                                Cursos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="eventos.html">
-                                <i class="bi bi-calendar-event me-2"></i>
-                                Eventos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="usuario.html">
-                                <i class="bi bi-people me-2"></i>
-                                Usuarios
-                            </a>
-                        </li>
-                        <li class="nav-item mt-auto">
-                            <a class="nav-link logout-link" href="#" onclick="cerrarSesion()">
-                                <i class="bi bi-box-arrow-right me-2"></i>
-                                Cerrar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <nav th:replace="~{components/nav :: nav}"></nav>
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -73,11 +31,11 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <!-- Enlaces a páginas separadas -->
                         <div class="btn-group" role="group" aria-label="Navegación de usuarios">
-                            <a href="alumnos.html" class="btn btn-outline-dark">
+                            <a th:href="@{/usuarios/alumnos}" class="btn btn-outline-dark">
                                 <i class="bi bi-mortarboard me-2"></i>
                                 Gestionar Alumnos
                             </a>
-                            <a href="docentes.html" class="btn btn-outline-dark">
+                            <a th:href="@{/usuarios/docentes}" class="btn btn-outline-dark">
                                 <i class="bi bi-person-workspace me-2"></i>
                                 Gestionar Docentes
                             </a>

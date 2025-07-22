@@ -27,8 +27,8 @@ public class SecurityConfig {
         return http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers( "/scripts/**", "/styles/**", "/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/", "/registro", "/usuario", "/login", "/index", "/eventos", "/docentes", "/cursos", "/alumnos").permitAll()
-                .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers("/","/registro", "/post").permitAll()
+                .requestMatchers("/usuarios/**", "/login", "/index", "/eventos", "/cursos").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers("/student").hasAnyAuthority("ROLE_STUDENT")
                 .anyRequest().authenticated()
             )
@@ -37,13 +37,15 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/?auth", true)
-                .failureUrl("/?error")
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/?error=true")
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/?logoutExitoso")
+                .logoutSuccessUrl("/") // ← vuelve al login
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
             )
             .userDetailsService(userDetailsService)

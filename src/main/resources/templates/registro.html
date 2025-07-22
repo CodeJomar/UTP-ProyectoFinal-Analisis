@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Udemy Admin - Registro de Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -25,7 +29,7 @@
 
         .register-card {
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             background-color: white;
             overflow: hidden;
             min-height: 600px;
@@ -80,7 +84,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .logo-subtitle {
@@ -215,9 +219,17 @@
             font-size: 0.875rem;
         }
 
-        .strength-weak { color: #ef4444; }
-        .strength-medium { color: #f59e0b; }
-        .strength-strong { color: #10b981; }
+        .strength-weak {
+            color: #ef4444;
+        }
+
+        .strength-medium {
+            color: #f59e0b;
+        }
+
+        .strength-strong {
+            color: #10b981;
+        }
 
         .form-text {
             font-size: 0.8rem;
@@ -270,13 +282,15 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .form-control, .btn-success {
+        .form-control,
+        .btn-success {
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -284,6 +298,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -295,6 +310,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="register-wrapper">
         <div class="card register-card">
@@ -308,7 +324,7 @@
                             </div>
                             <h1 class="logo-title">Udemy Admin</h1>
                             <p class="logo-subtitle">Únete a nuestra plataforma educativa</p>
-                            
+
                             <div class="benefits-list">
                                 <div class="benefit-item">
                                     <i class="bi bi-check-circle-fill"></i>
@@ -332,7 +348,8 @@
                     <div class="register-section">
                         <!-- Mobile Logo -->
                         <div class="d-lg-none text-center mb-4">
-                            <div class="logo-image mx-auto mb-3" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+                            <div class="logo-image mx-auto mb-3"
+                                style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
                                 <i class="bi bi-mortarboard-fill"></i>
                             </div>
                             <h2 class="logo-title" style="color: #4f46e5;">Udemy Admin</h2>
@@ -340,31 +357,23 @@
 
                         <div>
                             <h2 class="register-title">¡Crea tu cuenta!</h2>
-                            <p class="register-subtitle">Completa el formulario para unirte a nuestra plataforma educativa</p>
+                            <p class="register-subtitle">Completa el formulario para unirte a nuestra plataforma
+                                educativa</p>
 
-                            <form id="registerForm">
+                            <form id="registerForm" th:action="@{/post}" th:object="${usuario}" method="post">
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="usernameRegister" class="form-label">
-                                            <i class="bi bi-person me-2"></i>Nombre de Usuario
-                                        </label>
-                                        <input type="text" class="form-control" id="usernameRegister" placeholder="Elige un nombre de usuario" required>
-                                        <div class="invalid-feedback">
-                                            El nombre de usuario es requerido
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
+                                    <div class="mb-3">
                                         <label for="emailRegister" class="form-label">
                                             <i class="bi bi-envelope me-2"></i>Correo Electrónico
                                         </label>
-                                        <input type="email" class="form-control" id="emailRegister" placeholder="nombre@ejemplo.com" required>
+                                        <input type="email" th:field="*{username}" class="form-control"
+                                            id="emailRegister" placeholder="nombre@ejemplo.com" required>
                                         <div class="invalid-feedback">
                                             Ingresa un correo electrónico válido
                                         </div>
                                     </div>
                                 </div>
-
+                                <!--
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="phoneRegister" class="form-label">
@@ -388,12 +397,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                -->
 
                                 <div class="mb-3">
                                     <label for="passwordRegister" class="form-label">
                                         <i class="bi bi-lock me-2"></i>Contraseña
                                     </label>
-                                    <input type="password" class="form-control" id="passwordRegister" placeholder="Crea tu contraseña" required>
+                                    <input type="password" th:field="*{password}" class="form-control"
+                                        id="passwordRegister" placeholder="Crea tu contraseña" required>
                                     <div class="password-strength" id="passwordStrength"></div>
                                     <div class="invalid-feedback">
                                         La contraseña debe tener al menos 6 caracteres
@@ -404,19 +415,10 @@
                                     <label for="confirmPasswordRegister" class="form-label">
                                         <i class="bi bi-lock-fill me-2"></i>Confirmar Contraseña
                                     </label>
-                                    <input type="password" class="form-control" id="confirmPasswordRegister" placeholder="Confirma tu contraseña" required>
+                                    <input type="password" class="form-control" id="confirmPasswordRegister"
+                                        placeholder="Confirma tu contraseña" required>
                                     <div class="invalid-feedback">
                                         Las contraseñas no coinciden
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                                    <label class="form-check-label" for="termsCheck">
-                                        Acepto los <a href="#" class="login-link">términos y condiciones</a> y la <a href="#" class="login-link">política de privacidad</a>
-                                    </label>
-                                    <div class="invalid-feedback">
-                                        Debes aceptar los términos y condiciones
                                     </div>
                                 </div>
 
@@ -429,7 +431,7 @@
                                 </div>
 
                                 <p class="text-center mb-0">
-                                    ¿Ya tienes cuenta? <a href="login.html" class="login-link">Inicia Sesión</a>
+                                    ¿Ya tienes cuenta? <a th:href="@{/}" class="login-link">Inicia Sesión</a>
                                 </p>
                             </form>
                         </div>
@@ -438,21 +440,57 @@
             </div>
         </div>
     </div>
+    <!--
+    <div th:if="${param.registroExitoso}">
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '¡Registro exitoso!',
+                text: 'Ahora puedes iniciar sesión.',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    </div>
+    <div th:if="${param.error}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al iniciar sesión',
+                text: 'Usuario o contraseña incorrectos.',
+                confirmButtonText: 'Intentar de nuevo'
+            });
+        </script>
+    </div>
+    <div th:if="${#fields.hasErrors('username')}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al registrar',
+                text: 'El nombre de usuario ya está en uso.',
+                confirmButtonText: 'Corregir'
+            });
+        </script>
+    </div>
+-->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhyM9GkcTMJmNlNEj+aNDz00rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhyM9GkcTMJmNlNEj+aNDz00rV"
+        crossorigin="anonymous"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
     <script>
         // Función para validar la fortaleza de la contraseña
         function checkPasswordStrength(password) {
             const strengthIndicator = document.getElementById('passwordStrength');
             let strength = 0;
             let message = '';
-            
+
             if (password.length >= 6) strength++;
             if (password.match(/[a-z]/)) strength++;
             if (password.match(/[A-Z]/)) strength++;
             if (password.match(/[0-9]/)) strength++;
             if (password.match(/[^a-zA-Z0-9]/)) strength++;
-            
+
             switch (strength) {
                 case 0:
                 case 1:
@@ -467,7 +505,7 @@
                     message = '<span class="strength-strong"><i class="bi bi-shield-fill-check me-1"></i>Contraseña fuerte</span>';
                     break;
             }
-            
+
             strengthIndicator.innerHTML = message;
         }
 
@@ -489,7 +527,7 @@
         }
 
         // Event listeners para validación en tiempo real
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('registerForm');
             const username = document.getElementById('usernameRegister');
             const email = document.getElementById('emailRegister');
@@ -500,33 +538,33 @@
             const termsCheck = document.getElementById('termsCheck');
 
             // Validación de nombre de usuario
-            username.addEventListener('blur', function() {
+            username.addEventListener('blur', function () {
                 validateField(this, this.value.length >= 3, 'El nombre de usuario debe tener al menos 3 caracteres');
             });
 
             // Validación de email
-            email.addEventListener('blur', function() {
+            email.addEventListener('blur', function () {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 validateField(this, emailRegex.test(this.value), 'Ingresa un correo electrónico válido');
             });
 
             // Validación de teléfono
-            phone.addEventListener('input', function() {
+            phone.addEventListener('input', function () {
                 this.value = this.value.replace(/\D/g, '').substring(0, 9);
                 validateField(this, this.value.length === 9);
             });
 
             // Validación de DNI
-            dni.addEventListener('input', function() {
+            dni.addEventListener('input', function () {
                 this.value = this.value.replace(/\D/g, '').substring(0, 8);
                 validateField(this, this.value.length === 8);
             });
 
             // Validación de contraseña
-            password.addEventListener('input', function() {
+            password.addEventListener('input', function () {
                 checkPasswordStrength(this.value);
                 validateField(this, this.value.length >= 6);
-                
+
                 // Revalidar confirmación si ya tiene contenido
                 if (confirmPassword.value) {
                     validateField(confirmPassword, this.value === confirmPassword.value, 'Las contraseñas no coinciden');
@@ -534,65 +572,65 @@
             });
 
             // Validación de confirmación de contraseña
-            confirmPassword.addEventListener('input', function() {
+            confirmPassword.addEventListener('input', function () {
                 validateField(this, this.value === password.value, 'Las contraseñas no coinciden');
             });
 
             // Validación de términos
-            termsCheck.addEventListener('change', function() {
+            termsCheck.addEventListener('change', function () {
                 validateField(this, this.checked);
             });
 
             // Manejo del envío del formulario
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
+            form.addEventListener('submit', function (event) {
+                //event.preventDefault();
+
                 // Validar todos los campos
                 let isFormValid = true;
-                
+
                 if (username.value.length < 3) {
                     validateField(username, false);
                     isFormValid = false;
                 }
-                
+
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email.value)) {
                     validateField(email, false);
                     isFormValid = false;
                 }
-                
+
                 if (phone.value.length !== 9) {
                     validateField(phone, false);
                     isFormValid = false;
                 }
-                
+
                 if (dni.value.length !== 8) {
                     validateField(dni, false);
                     isFormValid = false;
                 }
-                
+
                 if (password.value.length < 6) {
                     validateField(password, false);
                     isFormValid = false;
                 }
-                
+
                 if (password.value !== confirmPassword.value) {
                     validateField(confirmPassword, false);
                     isFormValid = false;
                 }
-                
+
                 if (!termsCheck.checked) {
                     validateField(termsCheck, false);
                     isFormValid = false;
                 }
-                
+
                 if (isFormValid) {
                     // Mostrar loading en el botón
                     const submitBtn = form.querySelector('button[type="submit"]');
                     const originalText = submitBtn.innerHTML;
                     submitBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i>Creando cuenta...';
                     submitBtn.disabled = true;
-                    
+
                     // Simular delay de registro
                     setTimeout(() => {
                         // Mostrar mensaje de éxito
@@ -603,9 +641,9 @@
                             ¡Registro exitoso! Redirigiendo al panel de administración...
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         `;
-                        
+
                         form.insertBefore(alertDiv, form.firstChild);
-                        
+
                         // Guardar datos de usuario (simulado)
                         localStorage.setItem('userRegistration', JSON.stringify({
                             username: username.value,
@@ -614,12 +652,12 @@
                             dni: dni.value,
                             registrationTime: new Date().toISOString()
                         }));
-                        
+
                         // Redirigir después de 2 segundos
                         setTimeout(() => {
                             window.location.href = 'index.html';
                         }, 2000);
-                        
+
                     }, 1500);
                 } else {
                     // Mostrar error general
@@ -630,9 +668,9 @@
                         Por favor, corrige los errores en el formulario antes de continuar.
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     `;
-                    
+
                     form.insertBefore(alertDiv, form.firstChild);
-                    
+
                     // Auto-remove alert after 5 seconds
                     setTimeout(() => {
                         if (alertDiv.parentNode) {
@@ -650,4 +688,5 @@
         });
     </script>
 </body>
+
 </html>

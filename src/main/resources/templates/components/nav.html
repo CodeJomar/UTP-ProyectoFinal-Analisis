@@ -1,0 +1,45 @@
+<nav class="col-md-3 col-lg-2 d-md-block sidebar">
+  <div class="position-sticky pt-3">
+    <div class="sidebar-header mb-4">
+      <h4 class="text-white mb-1">
+        <a href="index.html" class="text-white text-decoration-none">Udemy admin</a>
+      </h4>
+      <small class="text-light">Sistema de Gestión Académica</small>
+    </div>
+
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}">
+          <i class="bi bi-grid-3x3-gap me-2"></i>
+          Inicio
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/cursos}">
+          <i class="bi bi-book me-2"></i>
+          Cursos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/eventos}">
+          <i class="bi bi-calendar-event me-2"></i>
+          Eventos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/usuarios}">
+          <i class="bi bi-people me-2"></i>
+          Usuarios
+        </a>
+      </li>
+      <li class="nav-item mt-auto">
+        <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
+        <a onclick="document.getElementById('logoutForm').submit();" class="nav-link logout-link"
+          style="cursor: pointer;">
+          <i class="bi bi-box-arrow-right me-2"></i>
+          Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

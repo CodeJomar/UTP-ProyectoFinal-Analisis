@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 
     
-    @GetMapping("/usuario")
+    @GetMapping("/usuarios")
     public String pagina1() {
         return "usuario";
     }
     
-    @GetMapping("/registro")
-    public String pagina2() {
-        return "registro";
-    }
+//    @GetMapping("/registro")
+//    public String pagina2() {
+//        return "registro";
+//    }
     
-    @GetMapping("/login")
-    public String pagina3() {
-        return "login";
-    }
+//    @GetMapping("/")
+//    public String pagina3() {
+//        return "login";
+//    }
     
     @GetMapping("/index")
     public String pagina4() {
@@ -32,7 +32,7 @@ public class WebController {
         return "eventos";
     }
     
-    @GetMapping("/docentes")
+    @GetMapping("/usuarios/docentes")
     public String pagina6() {
         return "docentes";
     }
@@ -42,7 +42,7 @@ public class WebController {
         return "cursos";
     }
     
-    @GetMapping("/alumnos")
+    @GetMapping("/usuarios/alumnos")
     public String pagina8() {
         return "alumnos";
     }

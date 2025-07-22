@@ -19,49 +19,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                <div class="position-sticky pt-3">
-                    <div class="sidebar-header mb-4">
-                        <h4 class="text-white mb-1">
-                            <a href="index.html" class="text-white text-decoration-none">Udemy admin</a>
-                        </h4>
-                        <small class="text-light">Sistema de Gestión Académica</small>
-                    </div>
-                                        
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="bi bi-grid-3x3-gap me-2"></i>
-                                Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="cursos.html">
-                                <i class="bi bi-book me-2"></i>
-                                Cursos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="eventos.html">
-                                <i class="bi bi-calendar-event me-2"></i>
-                                Eventos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="usuario.html">
-                                <i class="bi bi-people me-2"></i>
-                                Usuarios
-                            </a>
-                        </li>
-                        <li class="nav-item mt-auto">
-                            <a class="nav-link logout-link" href="#" onclick="cerrarSesion()">
-                                <i class="bi bi-box-arrow-right me-2"></i>
-                                Cerrar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <nav th:replace="~{components/nav :: nav}"></nav>
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
