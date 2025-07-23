@@ -93,5 +93,10 @@ public class DocenteService {
         return docenteRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
     }
+    
+    public long contarDocentes() {
+        return docenteRepository.count();
+    }
+    
 }
 

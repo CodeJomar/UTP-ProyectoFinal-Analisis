@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 
     
-    @GetMapping("/usuarios")
-    public String pagina1() {
-        return "usuario";
-    }
+//    @GetMapping("/usuarios")
+//    public String pagina1() {
+//        return "usuario";
+//    }
     
 //    @GetMapping("/registro")
 //    public String pagina2() {

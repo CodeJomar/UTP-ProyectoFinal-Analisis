@@ -9,6 +9,7 @@ import com.udemy.matriculas.auth.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,21 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
     
+    @Transactional // Asegura que las relaciones LAZY puedan ser cargadas
+    public Optional<Usuario> buscarPorIdConDetalles(String id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        usuarioOptional.ifPresent(usuario -> {
+            // Forzar la carga de las relaciones LAZY si existen
+            if (usuario.getDocente() != null) {
+                usuario.getDocente().getNombre(); // Acceder a una propiedad para forzar la carga
+            }
+            if (usuario.getEstudiante() != null) {
+                usuario.getEstudiante().getNombre(); // Acceder a una propiedad para forzar la carga
+            }
+        });
+        return usuarioOptional;
+    }
+    
     public Optional<Usuario> buscarPorId(String id) {
         return usuarioRepository.findById(id);
     }
@@ -50,4 +66,9 @@ public class UsuarioService {
     public void eliminarUsuario(String id) {
         usuarioRepository.deleteById(id);
     }
+    
+    public long contarUsuarios() {
+        return usuarioRepository.count();
+    }
+    
 }

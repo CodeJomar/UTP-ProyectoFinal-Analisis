@@ -89,5 +89,10 @@ public class EstudianteService {
         estudiante.setEstado(EstadoUsuario.INACTIVO);
         estudianteRepository.save(estudiante);
     }
+    
+    public long contarEstudiantes() {
+        return estudianteRepository.count();
+    }
+    
 }
 
