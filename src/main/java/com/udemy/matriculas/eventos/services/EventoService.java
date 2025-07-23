@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,9 +65,22 @@ public class EventoService {
             Docente docente = docenteRepository.findById(dto.getDocenteId())
                     .orElseThrow(() -> new RuntimeException("Docente no encontrado"));
             evento.setDocente(docente);
+        } else {
             evento.setDocente(null);
         }
 
         return eventoRepository.save(evento);
+    }
+
+    @Transactional
+    public void eliminarEvento(Long id) {
+        if (!eventoRepository.existsById(id)) {
+            throw new RuntimeException("No se puede eliminar. Evento no encontrado con ID: " + id);
+        }
+        eventoRepository.deleteById(id);
+    }
+
+    public long contarEventos() {
+        return eventoRepository.count();
     }
 }

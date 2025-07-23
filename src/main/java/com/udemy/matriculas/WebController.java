@@ -1,50 +1,45 @@
 package com.udemy.matriculas;
 
+import com.udemy.matriculas.auth.services.DashboardService;
+import com.udemy.matriculas.auth.services.UsuarioService;
+import com.udemy.matriculas.cursos.models.dtos.CursoDTO;
+import com.udemy.matriculas.cursos.services.CursoService;
+import com.udemy.matriculas.eventos.models.dtos.EventoDTO;
+import com.udemy.matriculas.eventos.services.EventoService;
+import com.udemy.matriculas.registros.services.DocenteService;
+import com.udemy.matriculas.registros.services.EstudianteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class WebController {
 
-    
-    @GetMapping("/usuarios")
-    public String pagina1() {
-        return "usuario";
-    }
-    
-//    @GetMapping("/registro")
-//    public String pagina2() {
-//        return "registro";
-//    }
-    
-//    @GetMapping("/")
-//    public String pagina3() {
-//        return "login";
-//    }
-    
+    private final DocenteService docenteService;
+    private final DashboardService dashboardService;
+    private final EstudianteService estudianteService;
+    private final UsuarioService usuarioService;
+    private final CursoService cursoService;
+    private final EventoService eventoService;
+
     @GetMapping("/index")
-    public String pagina4() {
+    public String indexPage(Model model) {
+        if (!model.containsAttribute("curso")) {
+            model.addAttribute("curso", new CursoDTO());
+        }
+        if (!model.containsAttribute("evento")) {
+            model.addAttribute("evento", new EventoDTO());
+        }
+        model.addAttribute("docentesDisponibles", docenteService.listarDocentes());
+        model.addAttribute("actividades", dashboardService.getActividadesRecientes());
+        model.addAttribute("ctdCursos", cursoService.contarCursos());
+        model.addAttribute("ctdEventos", eventoService.contarEventos());
+        model.addAttribute("ctdUsuarios", usuarioService.contarUsuarios());
+        model.addAttribute("ctdEstudiantes", estudianteService.contarEstudiantes());
+        model.addAttribute("ctdDocentes", docenteService.contarDocentes());
+
         return "index";
     }
-    
-    @GetMapping("/eventos")
-    public String pagina5() {
-        return "eventos";
-    }
-    
-    @GetMapping("/usuarios/docentes")
-    public String pagina6() {
-        return "docentes";
-    }
-    
-    @GetMapping("/cursos")
-    public String pagina7() {
-        return "cursos";
-    }
-    
-    @GetMapping("/usuarios/alumnos")
-    public String pagina8() {
-        return "alumnos";
-    }
-    
 }
