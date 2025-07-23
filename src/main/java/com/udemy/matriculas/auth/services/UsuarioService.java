@@ -14,6 +14,7 @@ import com.udemy.matriculas.registros.repositories.EstudianteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,26 @@ public class UsuarioService {
     public List<Usuario> listadoUsuarios() {
         return usuarioRepository.findAll();
     }
+<<<<<<< HEAD
 
+=======
+    
+    @Transactional // Asegura que las relaciones LAZY puedan ser cargadas
+    public Optional<Usuario> buscarPorIdConDetalles(String id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        usuarioOptional.ifPresent(usuario -> {
+            // Forzar la carga de las relaciones LAZY si existen
+            if (usuario.getDocente() != null) {
+                usuario.getDocente().getNombre(); // Acceder a una propiedad para forzar la carga
+            }
+            if (usuario.getEstudiante() != null) {
+                usuario.getEstudiante().getNombre(); // Acceder a una propiedad para forzar la carga
+            }
+        });
+        return usuarioOptional;
+    }
+    
+>>>>>>> e056ad775ba99c0d1a67588811461aa531cdf76b
     public Optional<Usuario> buscarPorId(String id) {
         return usuarioRepository.findById(id);
     }
@@ -86,8 +106,17 @@ public class UsuarioService {
     public void eliminarUsuario(String id) {
         usuarioRepository.deleteById(id);
     }
+<<<<<<< HEAD
 
     public long contarUsuarios() {
         return usuarioRepository.count();
     }
 }
+=======
+    
+    public long contarUsuarios() {
+        return usuarioRepository.count();
+    }
+    
+}
+>>>>>>> e056ad775ba99c0d1a67588811461aa531cdf76b

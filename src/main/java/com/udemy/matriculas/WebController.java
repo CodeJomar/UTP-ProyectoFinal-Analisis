@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class WebController {
 
+<<<<<<< HEAD
     private final DocenteService docenteService;
     private final DashboardService dashboardService;
     private final EstudianteService estudianteService;
@@ -24,6 +25,24 @@ public class WebController {
     private final CursoService cursoService;
     private final EventoService eventoService;
 
+=======
+    
+//    @GetMapping("/usuarios")
+//    public String pagina1() {
+//        return "usuario";
+//    }
+    
+//    @GetMapping("/registro")
+//    public String pagina2() {
+//        return "registro";
+//    }
+    
+//    @GetMapping("/")
+//    public String pagina3() {
+//        return "login";
+//    }
+    
+>>>>>>> e056ad775ba99c0d1a67588811461aa531cdf76b
     @GetMapping("/index")
     public String indexPage(Model model) {
         if (!model.containsAttribute("curso")) {

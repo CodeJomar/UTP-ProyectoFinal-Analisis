@@ -97,4 +97,9 @@ public class DocenteService {
     public long contarDocentes() {
         return docenteRepository.count();
     }
+    
+    public long contarDocentes() {
+        return docenteRepository.count();
+    }
+    
 }
