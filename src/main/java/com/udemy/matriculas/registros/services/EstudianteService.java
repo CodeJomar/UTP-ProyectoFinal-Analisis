@@ -90,17 +90,9 @@ public class EstudianteService {
         }
         estudianteRepository.save(estudiante);
     }
-<<<<<<< HEAD
 
     public long contarEstudiantes() {
         return estudianteRepository.count();
     }
-=======
-    
-    public long contarEstudiantes() {
-        return estudianteRepository.count();
-    }
-    
->>>>>>> e056ad775ba99c0d1a67588811461aa531cdf76b
 }
 

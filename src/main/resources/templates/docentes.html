@@ -1,100 +1,184 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Udemy Admin - Gestión de Docentes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css" rel="stylesheet">
     <link th:href="@{/styles/usuario.css}" rel="stylesheet">
+
 </head>
+
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <nav th:replace="~{components/nav :: nav}"></nav>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3">
-                <div>
-                    <h1 class="h2 text-success">Gestión de Docentes</h1>
-                    <p class="text-muted">Administra los profesores del sistema</p>
-                </div>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group" role="group">
-                        <a th:href="@{/usuarios}" class="btn btn-outline-dark">
-                            <i class="bi bi-people me-2"></i>Gestionar Usuarios
-                        </a>
-                        <a th:href="@{/usuarios/alumnos}" class="btn btn-outline-dark">
-                            <i class="bi bi-mortarboard me-2"></i>Gestionar Alumnos
-                        </a>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav th:replace="~{components/nav :: nav}"></nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <div>
+                        <h1 class="h2 text-success">Gestión de Docentes</h1>
+                        <p class="text-muted">Administra los profesores del sistema</p>
+                    </div>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <!-- Enlaces a páginas separadas -->
+                        <div class="btn-group" role="group" aria-label="Navegación de usuarios">
+                            <a th:href="@{/usuarios/alumnos}" class="btn btn-outline-dark">
+                                <i class="bi bi-mortarboard me-2"></i>
+                                Gestionar Alumnos
+                            </a>
+                            <a th:href="@{/usuarios}" class="btn btn-outline-dark">
+                                <i class="bi bi-people me-2"></i>
+                                Gestionar Usuarios
+                            </a>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-success" onclick="mostrarFormulario()">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Agregar Docente
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-header"><h5 class="mb-0"><i class="bi bi-person-workspace me-2"></i>Formulario de Docente</h5></div>
-                <div class="card-body">
-                    <form th:action="@{/usuarios/docentes/guardar}" th:object="${docente}" method="post">
-                        <input type="hidden" th:field="*{id}"/>
-                        <div class="row g-3">
-                            <div class="col-md-6"><label class="form-label">Nombres</label><input type="text" class="form-control" th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{nombre}"></div></div>
-                            <div class="col-md-6"><label class="form-label">Apellidos</label><input type="text" class="form-control" th:field="*{apellido}" th:classappend="${#fields.hasErrors('apellido')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{apellido}"></div></div>
-                            <div class="col-md-6"><label class="form-label">Correo</label><input type="email" class="form-control" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{username}"></div></div>
-                            <div class="col-md-6" th:if="*{id == null}"><label class="form-label">Contraseña</label><input type="password" class="form-control" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{password}"></div></div>
-                            <div class="col-md-6"><label class="form-label">DNI</label><input type="text" class="form-control" th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{dni}"></div></div>
-                            <div class="col-md-6"><label class="form-label">Celular</label><input type="text" class="form-control" th:field="*{celular}" th:classappend="${#fields.hasErrors('celular')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{celular}"></div></div>
-                            <div class="col-md-6"><label class="form-label">Especialidad</label><input type="text" class="form-control" th:field="*{especialidad}" th:classappend="${#fields.hasErrors('especialidad')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{especialidad}"></div></div>
-                            <div class="col-md-6"><label class="form-label">Salario</label><input type="number" step="0.01" class="form-control" th:field="*{salario}" th:classappend="${#fields.hasErrors('salario')} ? 'is-invalid' : ''"><div class="invalid-feedback" th:errors="*{salario}"></div></div>
-                        </div>
-                        <div class="mt-3">
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-2"></i>Guardar</button>
-                            <a th:href="@{/usuarios/docentes}" class="btn btn-secondary"><i class="bi bi-x-circle me-2"></i>Cancelar</a>
-                        </div>
-                    </form>
+                <!-- Formulario para agregar/editar docente -->
+                <div class="card mb-4" id="formularioDocente" style="display: none;">
+                    <div class="card-header">
+                        <h5 class="mb-0" id="tituloFormulario">
+                            <i class="bi bi-person-workspace me-2"></i>
+                            Agregar Nuevo Docente
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formDocente">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="nombreDocente" class="form-label">Nombre Completo *</label>
+                                        <input type="text" class="form-control" id="nombreDocente" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="emailDocente" class="form-label">Email *</label>
+                                        <input type="email" class="form-control" id="emailDocente" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="especialidadDocente" class="form-label">Especialidad *</label>
+                                        <input type="text" class="form-control" id="especialidadDocente" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="telefonoDocente" class="form-label">Teléfono</label>
+                                        <input type="tel" class="form-control" id="telefonoDocente">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+                                        <input type="date" class="form-control" id="fechaIngreso">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="estadoDocente" class="form-label">Estado</label>
+                                        <select class="form-select" id="estadoDocente">
+                                            <option value="ACTIVO">Activo</option>
+                                            <option value="INACTIVO">Inactivo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-success" onclick="guardarDocente()">
+                                    <i class="bi bi-save me-2"></i>
+                                    Guardar Docente
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelarFormulario()">
+                                    <i class="bi bi-x-circle me-2"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-header"><h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Lista de Docentes</h5></div>
-                <div class="card-body">
-                    <table id="tablaDocentes" class="table table-striped table-hover w-100">
-                        <thead>
-                        <tr>
-                            <th>ID</th><th>Nombre</th><th>Email</th><th>Especialidad</th><th>Estado</th><th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="doc : ${docentes}">
-                            <td th:text="${doc.id}"></td>
-                            <td th:text="${doc.nombre} + ' ' + ${doc.apellido}"></td>
-                            <td th:text="${doc.usuario.username}"></td>
-                            <td th:text="${doc.especialidad}"></td>
-                            <td><span class="badge" th:classappend="${doc.estado.name() == 'ACTIVO'} ? 'bg-success' : 'bg-danger'" th:text="${doc.estado.displayName}"></span></td>
-                            <td>
-                                <a th:href="@{/usuarios/docentes/editar/{id}(id=${doc.id})}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-                                <a th:href="@{/usuarios/docentes/estado/{id}(id=${doc.id})}" class="btn btn-sm btn-info"><i class="bi bi-arrow-repeat"></i></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <!-- Tabla de docentes -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-workspace text-success me-2"></i>
+                            Lista de Docentes
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Botón de búsqueda arriba de la tabla -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="searchInputDocentes"
+                                        placeholder="Buscar docentes...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="tablaDocentes" class="table table-striped table-hover w-100">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre Completo</th>
+                                        <th>Email</th>
+                                        <th>Especialidad</th>
+                                        <th>Teléfono</th>
+                                        <th>Fecha Ingreso</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Los datos se cargan dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
-<script th:src="@{/scripts/docentes.js}"></script>
 
-<div th:if="${successMessage}">
-    <script th:inline="javascript">Swal.fire('¡Éxito!', /*[[${successMessage}]]*/, 'success');</script>
-</div>
-<div th:if="${errorMessage}">
-    <script th:inline="javascript">Swal.fire('Error', /*[[${errorMessage}]]*/, 'error');</script>
-</div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+    <!-- Custom JS -->
+    <script src="scripts/docentes.js"></script>
 </body>
+
 </html>

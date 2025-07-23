@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Udemy Admin - Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css" rel="stylesheet">
 
@@ -19,112 +19,364 @@
             justify-content: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .login-wrapper { max-width: 900px; width: 100%; margin: 20px; }
-        .login-card { border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); background-color: white; overflow: hidden; min-height: 500px; }
-        .logo-section { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 40px; position: relative; }
-        .logo-image { width: 120px; height: 120px; background: rgba(255, 255, 255, 0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.3); }
-        .logo-image i { font-size: 3rem; color: white; }
-        .logo-title { font-size: 2.5rem; font-weight: 700; }
-        .login-section { padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
-        .login-title { font-size: 2rem; font-weight: 600; color: #1f2937; margin-bottom: 10px; }
-        .login-subtitle { color: #6b7280; margin-bottom: 30px; font-size: 1rem; }
-        .form-label { font-weight: 500; }
-        .form-control { border: 2px solid #e5e7eb; border-radius: 10px; padding: 12px 16px; transition: all 0.3s ease; }
-        .form-control:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-        .btn-primary { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none; border-radius: 10px; padding: 12px; font-weight: 600; }
-        .register-link { color: #4f46e5; text-decoration: none; font-weight: 500; }
-        .divider { display: flex; align-items: center; margin: 20px 0; }
-        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
-        .divider span { padding: 0 15px; color: #6b7280; }
+
+        .login-wrapper {
+            max-width: 900px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .login-card {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .logo-section {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        .logo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .logo-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .logo-image {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-image i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .logo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .login-section {
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .form-check-input:checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+
+        .register-link {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .register-link:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-wrapper {
+                margin: 10px;
+            }
+
+            .logo-section {
+                padding: 30px 20px;
+            }
+
+            .login-section {
+                padding: 30px 20px;
+            }
+
+            .logo-title {
+                font-size: 2rem;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+
+            .logo-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo-image i {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        .login-card {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-control,
+        .btn-primary {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
 <body>
-<div class="login-wrapper">
-    <div class="card login-card">
-        <div class="row g-0 h-100">
-            <div class="col-lg-5 d-none d-lg-block">
-                <div class="logo-section h-100">
-                    <div class="logo-content text-center">
-                        <div class="logo-image mx-auto"><i class="bi bi-mortarboard-fill"></i></div>
-                        <h1 class="logo-title">Udemy Admin</h1>
-                        <p class="opacity-75">Sistema de Gestión Académica</p>
+    <div class="login-wrapper">
+        <div class="card login-card">
+            <div class="row g-0 h-100">
+                <!-- Logo Section -->
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="logo-section h-100">
+                        <div class="logo-content">
+                            <div class="logo-image mx-auto">
+                                <i class="bi bi-mortarboard-fill"></i>
+                            </div>
+                            <h1 class="logo-title">Udemy Admin</h1>
+                            <p class="logo-subtitle">Sistema de Gestión Académica</p>
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-center gap-3 mb-3">
+                                    <div class="text-center">
+                                        <i class="bi bi-book fs-4 mb-2 d-block"></i>
+                                        <small>Cursos</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <i class="bi bi-people fs-4 mb-2 d-block"></i>
+                                        <small>Usuarios</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <i class="bi bi-calendar-event fs-4 mb-2 d-block"></i>
+                                        <small>Eventos</small>
+                                    </div>
+                                </div>
+                                <p class="small opacity-75">Gestiona tu institución educativa de manera eficiente</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-7">
-                <div class="login-section">
-                    <div class="text-center d-lg-none mb-4">
-                        <h2 class="h1" style="color: #4f46e5;">Udemy Admin</h2>
-                    </div>
-                    <div>
-                        <h2 class="login-title">¡Bienvenido de vuelta!</h2>
-                        <p class="login-subtitle">Ingresa tus credenciales para acceder al panel.</p>
-
-                        <form id="loginForm" th:action="@{/login}" method="post" novalidate>
-                            <div class="mb-3">
-                                <label for="usernameLogin" class="form-label"><i class="bi bi-person me-2"></i>Correo</label>
-                                <input name="username" type="text" class="form-control" id="usernameLogin" placeholder="Ingresa tu correo" required>
+                <!-- Login Section -->
+                <div class="col-lg-7">
+                    <div class="login-section">
+                        <!-- Mobile Logo -->
+                        <div class="d-lg-none text-center mb-4">
+                            <div class="logo-image mx-auto mb-3"
+                                style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+                                <i class="bi bi-mortarboard-fill"></i>
                             </div>
+                            <h2 class="logo-title" style="color: #4f46e5;">Udemy Admin</h2>
+                        </div>
 
-                            <div class="mb-3">
-                                <label for="passwordLogin" class="form-label"><i class="bi bi-lock me-2"></i>Contraseña</label>
-                                <input name="password" type="password" class="form-control" id="passwordLogin" placeholder="Ingresa tu contraseña" required>
-                            </div>
+                        <div>
+                            <h2 class="login-title">¡Bienvenido de vuelta!</h2>
+                            <p class="login-subtitle">Ingresa tus credenciales para acceder al panel administrativo</p>
 
-                            <button type="submit" class="btn btn-primary w-100 mb-3"><i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión</button>
+                            <form id="loginForm" th:action="@{/login}" method="post" novalidate>
+                                <div class="mb-3">
+                                    <label for="usernameLogin" class="form-label">
+                                        <i class="bi bi-person me-2"></i>Correo Electrónico
+                                    </label>
+                                    <input name="username" type="text" class="form-control" id="usernameLogin"
+                                        placeholder="Ingresa tu correo" required>
+                                </div>
 
-                            <div class="divider"><span>o</span></div>
+                                <div class="mb-3">
+                                    <label for="passwordLogin" class="form-label">
+                                        <i class="bi bi-lock me-2"></i>Contraseña
+                                    </label>
+                                    <input name="password" type="password" class="form-control" id="passwordLogin"
+                                        placeholder="Ingresa tu contraseña" required>
+                                </div>
 
-                            <p class="text-center mb-0">
-                                ¿No tienes cuenta? <a th:href="@{/registro}" class="register-link">Regístrate aquí</a>
-                            </p>
-                        </form>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                                </button>
+
+                                <div class="divider">
+                                    <span>o</span>
+                                </div>
+
+                                <p class="text-center mb-0">
+                                    ¿No tienes cuenta? <a th:href="@{/registro}" class="register-link">Regístrate
+                                        aquí</a>
+                                </p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    document.addEventListener('DOMContentLoaded', function() {
-        const params = new URLSearchParams(window.location.search);
-
-        if (params.has('registroExitoso')) {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+    <div th:if="${param.registroExitoso}">
+        <script>
             Swal.fire({
                 icon: 'success',
                 title: '¡Registro exitoso!',
                 text: 'Ahora puedes iniciar sesión.',
                 confirmButtonText: 'OK'
             });
-        }
-
-        if (params.has('error')) {
+        </script>
+    </div>
+    <div th:if="${param.error}">
+        <script>
             Swal.fire({
                 icon: 'error',
                 title: 'Inicio de sesión fallido',
                 text: 'Correo o contraseña incorrectos.',
                 confirmButtonText: 'Intentar de nuevo'
             });
-        }
+        </script>
+    </div>
 
-        if (params.has('logoutExitoso')) {
+    <div th:if="${param.logoutExitoso}">
+        <script>
             Swal.fire({
                 icon: 'info',
                 title: 'Sesión finalizada',
                 text: 'Has cerrado sesión correctamente.',
                 confirmButtonText: 'Aceptar'
             });
-        }
-    });
-    /*]]>*/
-</script>
-
+        </script>
+    </div>
 </body>
+
 </html>

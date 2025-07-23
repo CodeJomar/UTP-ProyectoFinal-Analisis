@@ -5,17 +5,14 @@ import com.udemy.matriculas.cursos.models.entities.Cursos;
 import com.udemy.matriculas.cursos.services.CursoService;
 import com.udemy.matriculas.registros.models.entities.Docente;
 import com.udemy.matriculas.registros.services.DocenteService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/*
 @Controller
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
@@ -24,69 +21,41 @@ public class CursoController {
     private final CursoService cursoService;
     private final DocenteService docenteService;
 
+    // Página principal
     @GetMapping
     public String paginaCursos(Model model) {
-        if (!model.containsAttribute("curso")) {
-            model.addAttribute("curso", new CursoDTO());
-        }
-        if (!model.containsAttribute("cursoParaCrear")) {
-            model.addAttribute("cursoParaCrear", new CursoDTO());
-        }
-        etiquetasThymeleaf(model);
+        etiquetasThymeleaf(model, new CursoDTO());
         return "cursos";
     }
 
+    // Guardar o actualizar
     @PostMapping("/guardar")
-    public String guardarCurso(@Valid @ModelAttribute("curso") CursoDTO cursoDTO, BindingResult result, RedirectAttributes redirect) {
-        if (result.hasErrors()) {
-            String objectName = cursoDTO.getId() == null ? "cursoParaCrear" : "curso";
-            redirect.addFlashAttribute(objectName, cursoDTO);
-            redirect.addFlashAttribute("org.springframework.validation.BindingResult." + objectName, result);
-            if (cursoDTO.getId() != null) {
-                redirect.addFlashAttribute("openModal", true);
-            }
-            return "redirect:/cursos";
-        }
-
+    public String guardarCurso(@ModelAttribute("curso") CursoDTO cursoDTO) {
         if (cursoDTO.getId() == null) {
             cursoService.registrarCurso(cursoDTO);
-            redirect.addFlashAttribute("successMessage", "¡Curso registrado exitosamente!");
         } else {
             cursoService.actualizarCurso(cursoDTO.getId(), cursoDTO);
-            redirect.addFlashAttribute("successMessage", "¡Curso actualizado exitosamente!");
         }
         return "redirect:/cursos";
     }
 
+    // Cargar datos para editar
     @GetMapping("/editar/{id}")
-    public String mostrarFormularioEditar(@PathVariable Long id, RedirectAttributes redirect) {
-        try {
-            Cursos curso = cursoService.obtenerCursoPorId(id);
-            CursoDTO cursoDTO = convertirACursoDTO(curso);
-            redirect.addFlashAttribute("curso", cursoDTO);
-            redirect.addFlashAttribute("openModal", true);
-        } catch (RuntimeException e) {
-            redirect.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/cursos";
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+        Cursos curso = cursoService.obtenerCursoPorId(id);
+        CursoDTO cursoDTO = convertirACursoDTO(curso);
+        etiquetasThymeleaf(model, cursoDTO);
+        return "cursos";
     }
 
-    @GetMapping("/eliminar/{id}")
-    public String eliminarCurso(@PathVariable Long id, RedirectAttributes redirect) {
-        try {
-            cursoService.eliminarCurso(id);
-            redirect.addFlashAttribute("successMessage", "Curso eliminado exitosamente.");
-        } catch (RuntimeException e) {
-            redirect.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/cursos";
-    }
-
-    private void etiquetasThymeleaf(Model model) {
+    // ---- Métodos de ayuda ----
+    private void etiquetasThymeleaf(Model model, CursoDTO cursoDTO) {
         List<CursoDTO> cursos = cursoService.listarCursos().stream()
                 .map(this::convertirACursoDTO)
                 .collect(Collectors.toList());
-        List<Docente> docentes = docenteService.listarDocentes();
+        List<Docente> docentes = docenteService.listarDocentesActivos();
+
+        model.addAttribute("curso", cursoDTO);
         model.addAttribute("cursos", cursos);
         model.addAttribute("docentesDisponibles", docentes);
     }
@@ -107,3 +76,4 @@ public class CursoController {
         );
     }
 }
+*/

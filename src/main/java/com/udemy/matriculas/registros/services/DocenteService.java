@@ -3,47 +3,41 @@ package com.udemy.matriculas.registros.services;
 import com.udemy.matriculas.auth.models.entities.Rol;
 import com.udemy.matriculas.auth.models.entities.Usuario;
 import com.udemy.matriculas.auth.models.enums.RolList;
-import com.udemy.matriculas.auth.repositories.RolRepository;
-import com.udemy.matriculas.auth.repositories.UsuarioRepository;
 import com.udemy.matriculas.registros.models.dtos.DocenteDTO;
 import com.udemy.matriculas.registros.models.entities.Docente;
 import com.udemy.matriculas.registros.models.enums.EstadoUsuario;
 import com.udemy.matriculas.registros.repositories.DocenteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DocenteService {
-
+    
     private final DocenteRepository docenteRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final RolRepository rolRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    @Transactional(readOnly = true)
+    
+    // Obtener todos los docentes
     public List<Docente> listarDocentes() {
         return docenteRepository.findAll();
     }
-
-    @Transactional
+    
+    // Obtener solo docentes activos
+//    public List<Docente> listarDocentesActivos() {
+//        return docenteRepository.findByEstadoUsuario(EstadoUsuario.ACTIVO);
+//    }
+    
+    // Registrar un nuevo docente
     public Docente registrarDocente(DocenteDTO dto) {
-        if (usuarioRepository.findByUsername(dto.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("El correo ya está en uso.");
-        }
-
-        Rol rolTeacher = rolRepository.findByNombre(RolList.ROLE_TEACHER)
-                .orElseThrow(() -> new RuntimeException("Error: No se encontró el rol de docente."));
-
+        Rol rolTeacher = new Rol();
+        rolTeacher.setNombre(RolList.ROLE_TEACHER);
+        
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.getUsername());
-        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
+        usuario.setPassword(dto.getPassword());
         usuario.setRol(rolTeacher);
-
+        
         Docente docente = new Docente();
         docente.setNombre(dto.getNombre());
         docente.setApellido(dto.getApellido());
@@ -53,49 +47,51 @@ public class DocenteService {
         docente.setSalario(dto.getSalario());
         docente.setEstado(EstadoUsuario.ACTIVO);
         docente.setUsuario(usuario);
-
+        
         return docenteRepository.save(docente);
     }
-
-    @Transactional
+    
+    // Actualizar docente por ID
     public Docente actualizarDocente(Long id, DocenteDTO dto) {
-        Docente docente = obtenerPorId(id);
-
-        if (!docente.getUsuario().getUsername().equals(dto.getUsername())) {
-            if (usuarioRepository.findByUsername(dto.getUsername()).isPresent()) {
-                throw new IllegalArgumentException("El nuevo correo ya está en uso.");
-            }
-            docente.getUsuario().setUsername(dto.getUsername());
-        }
-
+        Docente docente = docenteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
+        
         docente.setNombre(dto.getNombre());
         docente.setApellido(dto.getApellido());
         docente.setCelular(dto.getCelular());
         docente.setDni(dto.getDni());
         docente.setEspecialidad(dto.getEspecialidad());
         docente.setSalario(dto.getSalario());
-
+        
         return docenteRepository.save(docente);
     }
-
-    @Transactional
-    public void cambiarEstadoDocente(Long id) {
-        Docente docente = obtenerPorId(id);
+    
+    // Cambiar estado del docente (Activo <-> Inactivo)
+    public Docente cambiarEstadoDocente(Long id) {
+        Docente docente = docenteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
+        
         EstadoUsuario nuevoEstado = (docente.getEstado() == EstadoUsuario.ACTIVO)
-                ? EstadoUsuario.INACTIVO
-                : EstadoUsuario.ACTIVO;
+            ? EstadoUsuario.INACTIVO
+            : EstadoUsuario.ACTIVO;
+        
         docente.setEstado(nuevoEstado);
+        return docenteRepository.save(docente);
+    }
+    
+    // Eliminar lógico del docente (opcional: eliminación física también)
+    public void eliminarDocente(Long id) {
+        Docente docente = docenteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
+        
+        docente.setEstado(EstadoUsuario.INACTIVO);
         docenteRepository.save(docente);
     }
-
-    @Transactional(readOnly = true)
+    
+    // Buscar docente por ID
     public Docente obtenerPorId(Long id) {
         return docenteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
-    }
-
-    public long contarDocentes() {
-        return docenteRepository.count();
+            .orElseThrow(() -> new RuntimeException("Docente no encontrado con ID: " + id));
     }
     
     public long contarDocentes() {
@@ -103,3 +99,4 @@ public class DocenteService {
     }
     
 }
+

@@ -9,49 +9,50 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
+    
     private final CustomUDS userDetailsService;
-
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/scripts/**", "/styles/**", "/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/", "/login", "/registro").permitAll()
-                        .requestMatchers("/usuarios/**", "/index", "/eventos/**", "/cursos/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/student").hasAnyAuthority("ROLE_STUDENT")
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/")
-                        .loginProcessingUrl("/login")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/index", true)
-                        .failureUrl("/?error=true")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/?logoutExitoso")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                )
-                .csrf(withDefaults())
-                .userDetailsService(userDetailsService)
-                .build();
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers( "/scripts/**", "/styles/**", "/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/", "/login","/registro", "/post").permitAll()
+                .requestMatchers("/usuarios/**", "/index", "/eventos", "/cursos").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers("/student").hasAnyAuthority("ROLE_STUDENT")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/")
+                .loginProcessingUrl("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/?error=true")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/?logoutExitoso") // ← vuelve al login
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Usar CookieCsrfTokenRepository
+            )
+            .userDetailsService(userDetailsService)
+            .build();
     }
 }
